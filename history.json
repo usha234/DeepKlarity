@@ -1,0 +1,15 @@
+[
+    {
+        "name": "ushasathanur",
+        "email": "ushasathanur@gmail.com",
+        "core_skills": [
+            "java",
+            "flask",
+            "python"
+        ],
+        "soft_skills": [],
+        "resume_rating": 0,
+        "improvement_areas": "Consider learning: fastapi, postgresql, react, mongodb",
+        "filename": "USHA_RESUME.pdf"
+    }
+]

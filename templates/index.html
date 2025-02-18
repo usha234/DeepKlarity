@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Resume Analysis</title>
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto mt-10 p-6 max-w-3xl bg-gray-800 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold text-center mb-6">Resume Analysis</h1>
+
+        <form action="/" method="post" enctype="multipart/form-data" class="flex flex-col items-center">
+            <input type="file" name="pdf_doc" id="pdf_doc" accept=".pdf" class="mb-4 bg-white text-gray-900 border border-blue-300 py-2 px-4 rounded-lg block w-full text-sm">
+            <button type="submit" class="bg-blue-500 px-6 py-2 rounded-lg text-white hover:bg-blue-400">
+                Process
+            </button>
+        </form>
+
+        <div class="mt-8 p-4 bg-gray-700 rounded-lg">
+            {% if data %}
+                <h2 class="text-xl font-bold mb-4">Extracted Resume Data:</h2>
+                <p><strong>Name:</strong> {{ data["name"] }}</p>
+                <p><strong>Email:</strong> {{ data["email"] }}</p>
+                <p><strong>Core Skills:</strong> {{ data["core_skills"] | join(", ") }}</p>
+                <p><strong>Soft Skills:</strong> {{ data["soft_skills"] | join(", ") }}</p>
+                <p><strong>Resume Rating:</strong> {{ data["resume_rating"] }} / 10</p>
+                <p><strong>Improvement Areas:</strong> {{ data["improvement_areas"] }}</p>
+                <a href="{{ url_for('uploaded_file', filename=data['filename']) }}" class="text-blue-400 underline">Download Resume</a>
+            {% else %}
+                <p class="text-gray-400 text-center">No data extracted yet. Upload a resume to see results.</p>
+            {% endif %}
+        </div>
+
+        <div class="mt-8 p-4 bg-gray-700 rounded-lg">
+            <h2 class="text-xl font-bold mb-4">Previously Uploaded Resumes:</h2>
+            {% for resume in history %}
+                <div class="border-b border-gray-600 py-2">
+                    <p><strong>Name:</strong> {{ resume.name }}</p>
+                    <p><strong>Email:</strong> {{ resume.email }}</p>
+                    <a href="{{ url_for('uploaded_file', filename=resume.filename) }}" class="text-blue-400 underline">Download Resume</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
